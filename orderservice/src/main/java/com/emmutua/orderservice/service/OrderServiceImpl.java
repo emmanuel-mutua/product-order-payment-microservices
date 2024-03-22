@@ -1,6 +1,7 @@
 package com.emmutua.orderservice.service;
 
 import com.emmutua.orderservice.entity.Order;
+import com.emmutua.orderservice.external.client.ProductService;
 import com.emmutua.orderservice.model.OrderRequest;
 import com.emmutua.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +15,17 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final ProductService productService;
     @Override
     public long placeOrder(OrderRequest orderRequest) {
+        log.info("Placing order: " + orderRequest);
         // save the data with the status of the order created
         // reduce the quantity, call api, can use feign client, easily without calling url etc
         // payment service to do payment
         // save the status of the order
-        log.info("Placing order: " + orderRequest);
+        //rest api call using the OpenFeign client
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
+        log.info("Creating order with status created: " + orderRequest);
         Order order = Order.builder()
                 .amount(orderRequest.getTotalAmount())
                 .orderStatus("CREATED")
