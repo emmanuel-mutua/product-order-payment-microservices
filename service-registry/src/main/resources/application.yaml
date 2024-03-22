@@ -1,0 +1,9 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+#    say this is server and you cant allow server to connect to itself but others can
+    register-with-eureka: false
+    fetch-registry: false
