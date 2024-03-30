@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//Annotation for interfaces declaring that a REST client with that interface should be created
 @FeignClient("ProductService/product")
 public interface ProductService {
     @PutMapping("/reduceQuantity/{id}")

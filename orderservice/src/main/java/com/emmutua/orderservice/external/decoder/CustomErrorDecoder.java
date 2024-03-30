@@ -9,6 +9,10 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
+/**
+ * Getting error responses from other microservice
+ */
+
 @Log4j2
 public class CustomErrorDecoder implements ErrorDecoder {
     @Override
