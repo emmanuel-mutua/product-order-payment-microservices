@@ -9,6 +9,11 @@ spring:
         git:
           uri: git@github.com:emmanuel-mutua/spring-microservice-app-config.git
           clone-on-start: true
+        native:
+          search-locations: classpath:/configurations
+  profiles:
+    active: native
+#    use native active profile
 
 eureka:
   client:

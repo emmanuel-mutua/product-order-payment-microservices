@@ -1,27 +1,5 @@
-server:
-  port: 8081
 spring:
   application:
-    name: OrderService
-  datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    database: mysql
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-
+    name: orderservice
   config:
     import: configserver:http://localhost:9296
-
-#eureka:
-#  client:
-#    fetch-registry: true
-#    register-with-eureka: true
-#    service-url:
-#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
-#  instance:
-#    prefer-ip-address: true
