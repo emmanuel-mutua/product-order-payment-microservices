@@ -5,5 +5,9 @@ eureka:
     hostname: localhost
   client:
 #    say this is server and you cant allow server to connect to itself but others can
+#    make it not connect to itself
     register-with-eureka: false
     fetch-registry: false
+spring:
+  config:
+    import: optional:configserver:http//localhost:9296
