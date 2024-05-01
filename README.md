@@ -26,3 +26,4 @@
 **ZIPKIN**
 
 - For distributed tracing
+- Run the latest image`docker run -d -p 9411:9411 openzipkin/zipkin`

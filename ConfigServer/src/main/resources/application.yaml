@@ -1,3 +1,4 @@
+#CENRTALIZE EXTERNAL CONFIGURATIONS IN ONE CONFIG FILE
 server:
   port: 9296
 spring:
@@ -9,17 +10,8 @@ spring:
         git:
           uri: git@github.com:emmanuel-mutua/spring-microservice-app-config.git
           clone-on-start: true
+#          Tell spring that this also includes config files in the local filesystem
         native:
           search-locations: classpath:/configurations
   profiles:
     active: native
-#    use native active profile
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
-  instance:
-    prefer-ip-address: true
