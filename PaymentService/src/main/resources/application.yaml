@@ -4,8 +4,3 @@ spring:
 
   config:
     import: configserver:http://localhost:9296
-
-paypal:
-  client-id: AQ66cILHTJpSTOTQxsdzqy97uGh41NJJ5dskScUIeOwIDACd5DbNeNiQsmMysszF1XD2qpE0dsfdh-vJ
-  client-secret: EN5qvoaaliabtgdEUb7mYqePFWkfhIMyKGBDRvIJId5464Y36bgeU_-EJdNNNv2MxQBqef6ypJ9TPXWh
-  mode: sandbox #sandbox - testing live - production
