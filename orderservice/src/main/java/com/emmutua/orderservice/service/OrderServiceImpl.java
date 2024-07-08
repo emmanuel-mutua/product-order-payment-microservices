@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -55,5 +56,10 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
         log.info("Order placed success with order id" +order.getOrderId() );
         return order.getOrderId();
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 }
