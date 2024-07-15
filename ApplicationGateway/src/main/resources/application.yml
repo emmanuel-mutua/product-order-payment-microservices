@@ -8,20 +8,20 @@ spring:
     name: ApiGateway
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: product
-            uri: http://localhost:8085
-            predicates:
-              - Path=/product/**
-          - id: order
-            uri: http://localhost:8081
-            predicates:
-              - Path=/order/**
-          - id: payment
-            uri: http://localhost:8082
-            predicates:
-              - Path=/payment/**
+#      mvc:
+#        routes:
+#          - id: product
+#            uri: http://localhost:8085
+#            predicates:
+#              - Path=/product/**
+#          - id: order
+#            uri: http://localhost:8081
+#            predicates:
+#              - Path=/order/**
+#          - id: payment
+#            uri: http://localhost:8082
+#            predicates:
+#              - Path=/payment/**
     config:
       discovery:
         enabled: true
@@ -36,5 +36,7 @@ logging:
   level:
     root: info
     org.springframework.cloud.gateway.route.RouteDefinitionLocator: INFO
-    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway: DEBUG
+    reactor:
+      netty: DEBUG
 
