@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @ResponseBody means object returned is automatically serialized into JSON and passed back into the HttpResponse object.
+ */
+
 @RestController
 @RequestMapping("/order")
 @Log4j2
