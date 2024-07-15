@@ -10,7 +10,7 @@ public class RoutesConfig {
     @Bean
     public RouteLocator microserviceRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route( predicateSpec ->
+                .route(predicateSpec ->
                         predicateSpec.path("/product/**")
                                 .uri("http://localhost:8085")
                 )
