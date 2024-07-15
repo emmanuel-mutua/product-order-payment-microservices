@@ -7,10 +7,9 @@ import com.emmutua.orderservice.external.client.ProductService;
 import com.emmutua.orderservice.external.request.PaymentRequest;
 import com.emmutua.orderservice.model.OrderRequest;
 import com.emmutua.orderservice.repository.OrderRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -53,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         String orderStatus = null;
         try {
-            paymentService.doPayment(paymentRequest);
+            doPayment(paymentRequest);
             orderStatus = "PLACED";
         } catch (Exception e) {
             log.error("Error occurred in payment: Message: {}", e.getMessage());
@@ -64,8 +63,17 @@ public class OrderServiceImpl implements OrderService {
         log.info("Order placed success with order id" + order.getOrderId());
         return order.getOrderId();
     }
+    @CircuitBreaker(name = "doPayment", fallbackMethod = "doPaymentFallBack")
+    private void doPayment(PaymentRequest paymentRequest) {
+        paymentService.doPayment(paymentRequest);
+    }
 
-    @io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "", fallbackMethod = "reduceQuantityFromProductsFallBack")
+    private void doPaymentFallBack(Throwable throwable){
+        log.error("Error occurred in error occurred while paying: Message: {}", throwable.getMessage());
+        throw new CustomException(throwable.getLocalizedMessage(),"500", 500);
+    }
+
+    @CircuitBreaker(name = "reduceQuantityFromProducts", fallbackMethod = "reduceQuantityFromProductsFallBack")
     private void reduceQuantityFromProducts(OrderRequest orderRequest) {
         log.info("Reducing quantity from products: quantity {}",orderRequest.getQuantity());
                  productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
