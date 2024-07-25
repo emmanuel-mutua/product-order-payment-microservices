@@ -68,10 +68,11 @@ public class OrderServiceImpl implements OrderService {
         paymentService.doPayment(paymentRequest);
     }
 
-    private void doPaymentFallBack(Throwable throwable){
-        log.error("Error occurred in error occurred while paying: Message: {}", throwable.getMessage());
-        throw new CustomException(throwable.getLocalizedMessage(),"500", 500);
+    private void doPaymentFallBack(PaymentRequest paymentRequest, Throwable throwable) {
+        log.error("Payment failed for orderId: {}: Message: {}", paymentRequest.getOrderId(), throwable.getMessage());
+        throw new CustomException("Payment service unavailable. Please try again later.", "500", 500);
     }
+
 
     @CircuitBreaker(name = "reduceQuantityFromProducts", fallbackMethod = "reduceQuantityFromProductsFallBack")
     private void reduceQuantityFromProducts(OrderRequest orderRequest) {

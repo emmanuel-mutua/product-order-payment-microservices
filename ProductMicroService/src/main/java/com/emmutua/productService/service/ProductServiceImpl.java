@@ -34,10 +34,10 @@ public class ProductServiceImpl implements ProductService{
         return getProductFromRepo(requestId);
     }
 
-    @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+        @Override
+        public List<Product> getAllProducts() {
+            return productRepository.findAll();
+        }
 
     @Override
     public Void reduceQuantity(Long productId, Long quantity) {

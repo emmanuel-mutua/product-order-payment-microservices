@@ -3,6 +3,7 @@ package com.emmutua.orderservice.controller;
 import com.emmutua.orderservice.entity.Order;
 import com.emmutua.orderservice.model.OrderRequest;
 import com.emmutua.orderservice.service.OrderService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

@@ -25,7 +25,7 @@ public class ProductController {
         var response = productService.getProduct(requestId);
         return ResponseEntity.ok(response);
     }
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Product>> getAllProducts() {
         var response = productService.getAllProducts();
         return ResponseEntity.ok(response);
