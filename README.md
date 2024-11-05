@@ -102,6 +102,6 @@ Zipkin is used for distributed tracing, providing visibility into the flow of re
 
 A message broker, such as Kafka, is used for validating, storing, routing, and delivering messages to appropriate destinations. It facilitates communication in a distributed environment.
 
-## Conclusion
+
 
 This microservices architecture ensures a scalable, secure, and resilient system, capable of handling high traffic and maintaining operational integrity in the face of failures.

@@ -1,6 +1,5 @@
 package com.emmutua.chatService.config;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.DefaultContentTypeResolver;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
