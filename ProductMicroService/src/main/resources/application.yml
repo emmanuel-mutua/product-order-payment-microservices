@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: productservice
-  config:
-    import: configserver:http://localhost:9296
