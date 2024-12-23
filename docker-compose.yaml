@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zipkin:
     container_name: zipkin
@@ -9,6 +7,30 @@ services:
     networks:
       - zipkin
 
+  axonserver:
+    image: axoniq/axonserver
+    container_name: axonserver
+    hostname: axonserver
+    environment:
+      - AXONIQ_AXONSERVER_HOSTNAME=axonserver
+    volumes:
+      - ./axonserver-data:/data
+      - ./axonserver-events:/eventdata
+      - ./axonserver-config:/config:ro
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
+
+volumes:
+  axonserver-data:
+  axonserver-events:
+  axonserver-config:
+
 networks:
   zipkin:
+    driver: bridge
+  axon-demo:
     driver: bridge

@@ -63,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("Order placed success with order id" + order.getOrderId());
         return order.getOrderId();
     }
+
     @CircuitBreaker(name = "doPayment", fallbackMethod = "doPaymentFallBack")
     private void doPayment(PaymentRequest paymentRequest) {
         paymentService.doPayment(paymentRequest);

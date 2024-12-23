@@ -16,6 +16,9 @@
         <module name="orderservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="monolith" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -24,6 +27,7 @@
       <module name="PaymentService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="chatService" options="-parameters" />
+      <module name="monolith" options="-parameters" />
       <module name="orderservice" options="-parameters" />
       <module name="service-registry" options="-parameters" />
     </option>
