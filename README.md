@@ -28,25 +28,58 @@
 5. **Faster Development of Features**
     - The independent nature of microservices allows teams to work on different services simultaneously, speeding up the development process. This structure supports agile methodologies and rapid iteration, enabling faster delivery of new features and improvements.
 
-The system is designed to provide scalable, secure, and resilient services by leveraging microservices architecture. Key components include:
+The system is designed to provide scalable, secure, and resilient services by leveraging microservices architecture. Key design patterns include:
 
 - **API Gateway**: The single entry point for incoming requests, handling routing, security, traffic control (load balancing, rate limiting, caching), and observability (monitoring and logging).
-- **Config Server**: Centralized configuration management for all microservices.
 - **Discovery Server (Eureka)**: Service registry for dynamic discovery of microservices.
-- **Business Services**: Core services including ProductService, OrderService, and PaymentService.
-- **Zipkin**: Distributed tracing for monitoring and troubleshooting.
-- **Message Broker**: Handles communication in a distributed environment (e.g., Kafka).
+- **Event Driven - Message Broker**: Handles communication in a distributed environment (e.g., Kafka).
+- **Saga pattern**: Managing distributed transactions across the MS
+- **Circuit Breaker Pattern**: Impl fault-tolerant mechanism for MS, preventing cascading failures
+- **Retry Pattern**: Enhances microservices' resilience by automatically retrying failed operations
 
-## Components
+ ************************************************************************************************
+- **Zipkin**: Distributed tracing for monitoring and troubleshooting.
+- **Config Server**: Centralized configuration management for all microservices.
+- **Business Services**: Core services including ProductService, OrderService, and PaymentService.
+
+
+
+## Patterns
 
 ### API Gateway
 
 The API Gateway acts as a traffic cop, managing all incoming requests and routing them to the appropriate microservices. Key functionalities include:
 
 - **Routing**: Directing API calls to the correct microservice.
-- **Security**: Implementing authentication and authorization.
+- **Security**: Implementing authentication and authorization - Check on keycloak.
 - **Traffic Control**: Load balancing, rate limiting, and caching.
 - **Observability**: Monitoring and logging for operational insights.
+
+
+### CQRS Pattern
+- Command Query Responsibility Segregation
+- Article on CQRS
+-  (Check On[ event sourcing](https://www.axoniq.io/concepts/cqrs-and-event-sourcing) and CQRS)
+   -[ Axon Framework](https://docs.axoniq.io/axon-framework-reference/development/)
+- Efficient for constructing efficient and scalable services
+- Prescribes a strict split within an application, isolating the command and query components.
+- Event Sourcing stores all changes to the application state as a sequence of events.
+- This allows you to query events, reconstruct past states, and adjust state for retroactive changes.
+
+### Saga Pattern
+- Manage data consistency / Transaction management
+- Atomicity - All statements in a transaction are treated as a single unit either complete or not at all
+- Event-Driven Architectures (EDA) are software systems where services communicate by producing and responding to events
+- An event is a record of something that has happened within the system, such as, for example, a user creating a new account on a website, an order being placed, or a payment being processed
+- EDA is the creation of loosely coupled services. Since services communicate through events rather than direct calls
+- Asynchronous communication is another key benefit. Services in an EDA system do not wait for immediate responses when they emit events
+  ![img_1.png](images/img_1.png)
+  ![img_1.png](images/img_2.png)
+
+
+### Message Broker
+A message broker, such as Kafka, is used for validating, storing, routing, and delivering messages to appropriate destinations. It facilitates communication in a distributed environment.
+
 
 #### Circuit Breaker
 
@@ -64,15 +97,6 @@ For more details, refer to the following resources:
 - [Resilience4j Documentation](https://resilience4j.readme.io/docs/circuitbreaker)
 - [Medium Article on Circuit Breaker in Microservices](https://nirajtechi.medium.com/circuit-breaker-in-microservices-and-spring-boot-example-4ad76c7a33e6)
 
-### Config Server
-
-The Config Server centralizes configuration management for all microservices, ensuring consistency and ease of management.
-
-- **Dependencies**:
-    - Config Server
-    - Config Client
-    - Spring Actuator for metrics
-
 ### Discovery Server (Eureka)
 
 The Eureka Discovery Server acts as a service registry where each microservice registers itself. This enables the API Gateway and other services to discover available services dynamically.
@@ -82,6 +106,16 @@ The Eureka Discovery Server acts as a service registry where each microservice r
     - Config Client
     - Spring Actuator for metrics
 
+
+### Config Server
+
+The Config Server centralizes configuration management for all microservices, ensuring consistency and ease of management.
+
+- **Dependencies**:
+    - Config Server
+    - Config Client
+    - Spring Actuator for metrics
+    - 
 ### Business Services
 
 Our core business services include:
@@ -98,10 +132,6 @@ Zipkin is used for distributed tracing, providing visibility into the flow of re
 
 - **Setup**: `docker run -d -p 9411:9411 openzipkin/zipkin`
 
-### Message Broker
-
-A message broker, such as Kafka, is used for validating, storing, routing, and delivering messages to appropriate destinations. It facilitates communication in a distributed environment.
-
-
 
 This microservices architecture ensures a scalable, secure, and resilient system, capable of handling high traffic and maintaining operational integrity in the face of failures.
+ 
