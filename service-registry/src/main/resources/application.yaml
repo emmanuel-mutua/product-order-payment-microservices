@@ -11,5 +11,5 @@ eureka:
 spring:
   application:
     name: registry
-  config:
-    import: optional:configserver:http//localhost:9296
+#  config:
+#    import: optional:configserver:http//localhost:9296
