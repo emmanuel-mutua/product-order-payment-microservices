@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -23,15 +25,13 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     @PostMapping("/placeOrder")
-    public ResponseEntity<Long> placeOrder(@RequestBody OrderRequest orderRequest){
-        long orderId = orderService.placeOrder(orderRequest);
-        log.info("orderid: " + orderId);
-        return new ResponseEntity<>(orderId, HttpStatus.OK);
+    public Mono<Long> placeOrder(@RequestBody OrderRequest orderRequest){
+        return orderService.placeOrder(orderRequest);
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders(){
-        var response = orderService.findAll();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public Flux<Order> getOrders(){
+        return orderService
+                .findAll();
     }
 }

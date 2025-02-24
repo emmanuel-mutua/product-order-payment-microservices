@@ -2,11 +2,14 @@ package com.emmutua.productService.controller;
 
 import com.emmutua.productService.entity.Product;
 import com.emmutua.productService.model.CreationResponse;
+import com.emmutua.productService.model.ProductProjection;
 import com.emmutua.productService.model.ProductRequest;
 import com.emmutua.productService.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -15,35 +18,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
+
     @PostMapping
-    public ResponseEntity<CreationResponse> createProduct(@RequestBody ProductRequest product) {
-        var response = productService.createProduct(product);
-        return ResponseEntity.ok(response);
+    public Mono<ResponseEntity<CreationResponse>> createProduct(@RequestBody ProductRequest product) {
+        return productService.createProduct(product)
+                .map(ResponseEntity::ok);
     }
+
     @GetMapping("/{requestId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long requestId) {
-        var response = productService.getProduct(requestId);
-        return ResponseEntity.ok(response);
+    public Mono<ResponseEntity<ProductProjection>> getProduct(@PathVariable Long requestId) {
+        return productService.getProduct(requestId)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-    @GetMapping()
-    public ResponseEntity<List<Product>> getAllProducts() {
-        var response = productService.getAllProducts();
-        return ResponseEntity.ok(response);
+
+    @GetMapping
+    public ResponseEntity<Flux<Product>> getAllProducts() {
+        var products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
+
     @PutMapping("/reduceQuantity/{id}")
-    ResponseEntity<Void> reduceQuantity(
+    public Mono<ResponseEntity<CreationResponse>> reduceQuantity(
             @PathVariable("id") Long productId,
             @RequestParam Long quantity
-    ){
-        var response = productService.reduceQuantity(productId, quantity);
-        return ResponseEntity.ok(response);
+    ) {
+        return productService.reduceQuantity(productId, quantity)
+                .map(ResponseEntity::ok);
     }
+
     @PutMapping("/increaseQuantity/{id}")
-    ResponseEntity<CreationResponse> increaseQuantity(
+    public Mono<ResponseEntity<CreationResponse>> increaseQuantity(
             @PathVariable("id") Long productId,
             @RequestParam Long quantity
-    ){
-        var response = productService.increaseQuantity(productId, quantity);
-        return ResponseEntity.ok(response);
+    ) {
+        return productService.increaseQuantity(productId, quantity)
+                .map(ResponseEntity::ok);
     }
 }

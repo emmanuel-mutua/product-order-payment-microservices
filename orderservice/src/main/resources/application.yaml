@@ -1,8 +1,29 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: orderservice
-  config:
-    import: configserver:http://localhost:9296
+
+  r2dbc:
+    username: postgres
+    password: postgres
+    url: r2dbc:postgresql://localhost:5433/postgres
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  eureka:
+    client:
+      fetch-registry: true
+      register-with-eureka: true
+      service-url:
+        defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+    instance:
+      prefer-ip-address: true
+
 resilience4j:
   thread-pool-bulkhead:
     backends:

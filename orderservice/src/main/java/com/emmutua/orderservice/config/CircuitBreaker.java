@@ -52,7 +52,7 @@ public class CircuitBreaker {
                 .slowCallDurationThreshold(Duration.ofMillis(500))
                 .minimumNumberOfCalls(5)
                 .slidingWindowSize(10) //configure the size of sliding window used to measure the outcome of calls when the cb is closed
-                .slidingWindowType(COUNT_BASED) //what does it mean ??
+                .slidingWindowType(COUNT_BASED) //what does it mean ?? - tracks the calls, if its count, can be something like last 10 calls, if its time, its fixed time period
                 .build();
     }
 

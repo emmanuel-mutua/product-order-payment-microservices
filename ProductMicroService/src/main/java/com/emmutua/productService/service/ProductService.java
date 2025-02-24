@@ -2,18 +2,21 @@ package com.emmutua.productService.service;
 
 import com.emmutua.productService.entity.Product;
 import com.emmutua.productService.model.CreationResponse;
+import com.emmutua.productService.model.ProductProjection;
 import com.emmutua.productService.model.ProductRequest;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 public interface ProductService {
-    CreationResponse createProduct(ProductRequest product);
+    Mono<CreationResponse> createProduct(ProductRequest product);
 
-    Product getProduct(Long requestId);
+    Mono<ProductProjection> getProduct(Long requestId);
 
-    List<Product> getAllProducts();
+    Flux<Product> getAllProducts();
 
-    Void reduceQuantity(Long productId, Long quantity);
+    Mono<CreationResponse> reduceQuantity(Long productId, Long quantity);
 
-    CreationResponse increaseQuantity(Long productId, Long quantity);
+    Mono<CreationResponse> increaseQuantity(Long productId, Long quantity);
 }

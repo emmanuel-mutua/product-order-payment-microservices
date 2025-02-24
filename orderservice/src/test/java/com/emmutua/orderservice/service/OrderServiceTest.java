@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.time.Instant;
 
@@ -59,7 +61,7 @@ class OrderServiceTest {
                 .build();
 
         doReturn(order).when(orderRepository).save(any(Order.class));
-        long orderID = orderService.placeOrder(orderRequest);
+        Mono orderID = orderService.placeOrder(orderRequest);
         assertEquals(orderID, 1L );
         //verify this happens once
         verify(orderRepository, times(2)).save(any(Order.class));
@@ -90,10 +92,10 @@ class OrderServiceTest {
         doThrow(new RuntimeException("Payment failed")).when(paymentService).doPayment(any(PaymentRequest.class));
 
         // Act
-        long orderId = orderService.placeOrder(orderRequest);
+        StepVerifier.create(orderService.placeOrder(orderRequest))
+                .expectNext(1L)
+                .verifyComplete();
 
-        // Assert
-        assertEquals(1L, orderId);
         verify(orderRepository, times(2)).save(any(Order.class));
         verify(productService).reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
         verify(paymentService).doPayment(any(PaymentRequest.class));
