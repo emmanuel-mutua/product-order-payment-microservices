@@ -23,7 +23,7 @@ public class ApplicationGatewayApplication {
  * We can impl communication between microservices using kafka as the message broker
  * Need to integrate keyclock - identity and access management tool (authenticate users and auth)
  *
- * KEYCLOCK FEATURES - IAM (Identity and Access management tool)
+ * KEYCLOCK FEATURES
  * - Single Sign-On and Single Logout - sign in once
  * - Identity brockering and social logging- g,fb
  * - User Federation - intergrates with existing user db

@@ -10,13 +10,13 @@
         <module name="ApplicationGateway" />
         <module name="chatService" />
         <module name="ProductService" />
+        <module name="ConfigServer" />
         <module name="PaymentService" />
         <module name="service-registry" />
         <module name="orderservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ConfigServer" target="17" />
       <module name="monolith" target="17" />
     </bytecodeTargetLevel>
   </component>

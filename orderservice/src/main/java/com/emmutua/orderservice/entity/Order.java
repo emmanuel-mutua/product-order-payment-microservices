@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Table(
-        name = "ORDERDTLS"
+        name = "ORDER_DETAILS"
 )
 public class Order {
     @Id

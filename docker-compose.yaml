@@ -1,13 +1,4 @@
 services:
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5433:5432'
-
   zipkin:
     container_name: zipkin
     image: openzipkin/zipkin
@@ -16,40 +7,30 @@ services:
     networks:
       - zipkin
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:26.1.0
-    container_name: keycloak_service
-    ports:
-      - "9090:8080"
+  axonserver:
+    image: axoniq/axonserver
+    container_name: axonserver
+    hostname: axonserver
     environment:
-      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
-    command: [ "start-dev" ]
+      - AXONIQ_AXONSERVER_HOSTNAME=axonserver
+    volumes:
+      - ./axonserver-data:/data
+      - ./axonserver-events:/eventdata
+      - ./axonserver-config:/config:ro
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
 
-#  axonserver:
-#    image: axoniq/axonserver
-#    container_name: axonserver
-#    hostname: axonserver
-#    environment:
-#      - AXONIQ_AXONSERVER_HOSTNAME=axonserver
-#    volumes:
-#      - ./axonserver-data:/data
-#      - ./axonserver-events:/eventdata
-#      - ./axonserver-config:/config:ro
-#    ports:
-#      - '8024:8024'
-#      - '8124:8124'
-#      - '8224:8224'
-#    networks:
-#      - axon-demo
-#
-#volumes:
-#  axonserver-data:
-#  axonserver-events:
-#  axonserver-config:
+volumes:
+  axonserver-data:
+  axonserver-events:
+  axonserver-config:
 
 networks:
   zipkin:
     driver: bridge
-#  axon-demo:
-#    driver: bridge
+  axon-demo:
+    driver: bridge

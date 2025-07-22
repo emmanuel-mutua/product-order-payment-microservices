@@ -41,18 +41,18 @@ class ProductServiceTest {
 
         var productReq = ProductRequest.builder().build();
 
-        //when(productRepository.save(any(Product.class))).thenReturn(product);
+        when(productRepository.save(any(Product.class))).thenReturn(product);
 
         var response = productService.createProduct(productReq);
         assertNotNull(response);
-        //assertEquals("Product created successfully", response.getCreationMessage());
+        assertEquals("Product created successfully", response.getCreationMessage());
         verify(productRepository, times(1)).save(any(Product.class));
     }
 
     @Test
     void getProduct() {
         var product = new Product();
-       // when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+        when(productRepository.findById(1L)).thenReturn(Optional.of(product));
         verify(productRepository, times(1)).findById(1L);
 
         var response = productService.getProduct(1L);
@@ -63,7 +63,7 @@ class ProductServiceTest {
     @Test
     void getAllProducts() {
         var products = List.of(new Product(), new Product());
-        //when(productService.getAllProducts()).thenReturn(products);
+        when(productService.getAllProducts()).thenReturn(products);
         var response = productService.getAllProducts();
 
         assertEquals(products, response);
