@@ -5,13 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import reactor.core.publisher.Mono;
 
 //Annotation for interfaces declaring that a REST client with that interface should be created
 @FeignClient(name = "productservice/product")
 public interface ProductService {
     @PutMapping("/reduceQuantity/{id}")
-    Mono<Void> reduceQuantity(
+    ResponseEntity<Void> reduceQuantity(
             @PathVariable("id") long productId,
             @RequestParam long quantity
     );

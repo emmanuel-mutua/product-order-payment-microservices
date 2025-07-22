@@ -22,21 +22,11 @@ spring:
 #            uri: http://localhost:8082
 #            predicates:
 #              - Path=/payment/**
-
-  eureka:
-    client:
-      fetch-registry: true
-      register-with-eureka: true
-      service-url:
-        defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
-    instance:
-      prefer-ip-address: true
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9090/realms/product-order-py-ms-realm
+    config:
+      discovery:
+        enabled: true
+  config:
+    import: configserver:http://localhost:9296
 
 management:
   tracing:
@@ -49,9 +39,4 @@ logging:
     org.springframework.cloud.gateway: DEBUG
     reactor:
       netty: DEBUG
-
-keycloak:
-  credentials:
-    client-secret: mNZIiTfLeh1cMw9KjkJkvCLqZS8WnRAh
-    token-endpoint: http://localhost:9090/realms/product-order-py-ms-realm/protocol/openid-connect/token
 

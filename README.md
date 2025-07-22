@@ -49,18 +49,8 @@ The system is designed to provide scalable, secure, and resilient services by le
 ### API Gateway
 
 The API Gateway acts as a traffic cop, managing all incoming requests and routing them to the appropriate microservices. Key functionalities include:
-- security, monitoring/metrics, and resiliency.
+
 - **Routing**: Directing API calls to the correct microservice.
-- https://www.atlassian.com/microservices/cloud-computing/microservices-security
-- https://medium.com/@a.zagarella/microservices-architecture-a-real-business-world-scenario-c77c31a957fb
-- https://www.keycloak.org/
-## KeyCloak - Used for Identity and Access management 
-#### Terms
-- Groups - A way to manage roles, you can group common roles and add certain permissions
-
-
-- https://www.linkedin.com/advice/0/how-can-oauth-20-enhance-microservice-architecture-lq8ff
-- 
 - **Security**: Implementing authentication and authorization - Check on keycloak.
 - **Traffic Control**: Load balancing, rate limiting, and caching.
 - **Observability**: Monitoring and logging for operational insights.
@@ -144,9 +134,4 @@ Zipkin is used for distributed tracing, providing visibility into the flow of re
 
 
 This microservices architecture ensures a scalable, secure, and resilient system, capable of handling high traffic and maintaining operational integrity in the face of failures.
-
-
-#### Inspect docker images
-- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' product-order-payment-microservices-db-1
-
  
